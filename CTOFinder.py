@@ -44,7 +44,7 @@ def create_token_info_template(token_name, token_address, created_at_timestamp, 
     ├ 🌐 Website: {website}
     ├ 🐦 Twitter: {twitter}
     ├ 📱 Telegram: {telegram}
-    ├ 📱 Telegram: https://photon-sol.tinyastro.io/en/lp/{token_address}
+    ├ 📱 Photon: https://photon-sol.tinyastro.io/en/lp/{token_address}
     └ 💊 Pump Fun: {pump_fun}
 
     """
@@ -76,12 +76,14 @@ def on_message(ws, message):
             )
             print(token_info)
 
-            for user_id in ['284355239', '6195978436', '7133260701']:
+            for user_id in ['284355239', '6195978436', '7133260701', '7031389500']:
                 try:
                     bot.send_photo(user_id, payload["image_uri"], caption=token_info)
                 except Exception as e:
                     try:
+                      website = f"https://pump.fun/{mint}"
                       bot.send_message(user_id, token_info)
+                      bot.send_message(user_id, website)
                     except Exception as e:
                       print("Cant send message")
 
