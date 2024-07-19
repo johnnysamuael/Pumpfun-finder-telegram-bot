@@ -56,7 +56,7 @@ def on_message(ws, message):
 
         marketcap = payload["usd_market_cap"]
 
-        if event == "tradeCreated" and payload["creator"] == payload["user"] and not payload["is_buy"] and marketcap > 7500:
+        if event == "tradeCreated" and payload["creator"] == payload["user"] and not payload["is_buy"]:
             mint = payload["mint"]
             token_info = create_token_info_template(
                 token_name=payload["name"],
@@ -73,6 +73,9 @@ def on_message(ws, message):
             print(token_info)
 
             for user_id in ['284355239', '6195978436', '7133260701']:
+                BOT_TOKEN='7376596462:AAFGJBeCoaa0H2diFQ6qQ_N3qJ-PJn2uZYk'
+                bot = telebot.TeleBot(BOT_TOKEN)
+
                 try:
                     bot.send_photo(user_id, payload["image_uri"], caption=token_info)
                 except Exception as e:
