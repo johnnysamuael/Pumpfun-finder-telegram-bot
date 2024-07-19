@@ -1,13 +1,13 @@
 import websocket
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 import telebot
 import requests
 
 def format_timestamp(timestamp):
     try:
         if timestamp:
-            return datetime.utcfromtimestamp(int(str(timestamp)[:10])).strftime('%Y-%m-%d %H:%M:%S')
+            return datetime.fromtimestamp(int(str(timestamp)[:10]), tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
         else:
             return "Will never be king"
     except (ValueError, OSError):
