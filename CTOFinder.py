@@ -44,7 +44,9 @@ def create_token_info_template(token_name, token_address, created_at_timestamp, 
     ├ 🌐 Website: {website}
     ├ 🐦 Twitter: {twitter}
     ├ 📱 Telegram: {telegram}
+    ├ 📱 Telegram: https://photon-sol.tinyastro.io/en/lp/{token_address}
     └ 💊 Pump Fun: {pump_fun}
+
     """
     return template
 
@@ -56,7 +58,7 @@ def on_message(ws, message):
 
         marketcap = payload["usd_market_cap"]
 
-        if event == "tradeCreated" and payload["creator"] == payload["user"] and not payload["is_buy"]:
+        if event == "tradeCreated" and payload["creator"] == payload["user"] and not payload["is_buy"] and marketcap > 7500:
             mint = payload["mint"]
             token_info = create_token_info_template(
                 token_name=payload["name"],
